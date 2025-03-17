@@ -1,13 +1,11 @@
 import { BsCart2 } from "react-icons/bs";
-import { FaMoon } from "react-icons/fa";
-import { ImTruck } from "react-icons/im";
 import { NavLink } from "react-router-dom";
-import Container from "./UI/Container";
+import ThemeSwitcher from "./UI/ThemeSwitcher";
 
 function Navbar() {
   return ( 
     <>
-      <nav className="w-full bg-indigo-50 h-[68px]">
+      <nav className="w-full bg-base-300 h-[68px]">
         <section className="h-full container mx-auto w-[1080px] flex justify-between items-center">
           <div className="dropdown lg:hidden">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -45,7 +43,7 @@ function Navbar() {
             </NavLink>
           </div>
           <div className="flex justify-between gap-5 items-center">
-            <FaMoon size={16}/>
+            <ThemeSwitcher />
             <BsCart2 size={24}/>
           </div>
         </section>

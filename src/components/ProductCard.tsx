@@ -6,13 +6,15 @@ function ProductCard({product, list}: {product: Product, list: boolean}) {
   const formattedPrice = formatPriceInUSD(price)
 
   return ( 
-    <div className={`bg-base-100 shadow-sm rounded-lg ${list ? 'w-full h-[192px] flex flex-col flex-wrap sm:flex-row p-8' : 'w-[356px]'}`}>
-      <figure className={list ? '' : 'px-4 py-4'}>
+    <div className={`bg-base-100 shadow-sm rounded-lg ${list ? 'w-full h-[192px] flex flex-col flex-wrap sm:flex-row p-8' : 'w-[356px] h-[332px]'}`}>
+      <div className={list ? '' : 'w-full px-4 pt-4 h-[208px]'}>
         <img
           src={product.attributes.image}
           alt="image"
-          className={`object-cover ${list ? 'h-24 w-24 rounded-xl sm:h-32 sm:w-32' : 'rounded-xl w-full h-[192px]'}`} />
-      </figure>
+          className={`object-cover ${list ? 'h-24 w-24 rounded-xl sm:h-32 sm:w-32' : 'rounded-xl w-full h-full'}`} 
+          loading="lazy"
+        />
+      </div>
       {list &&
       <>
         <div>
@@ -28,7 +30,7 @@ function ProductCard({product, list}: {product: Product, list: boolean}) {
       }
       {!list && 
       <div className="card-body items-center text-center">
-        <h2 className="card-title capitalize tracking-wider">{product.attributes.title}</h2>
+        <h2 className="capitalize">{product.attributes.title}</h2>
         <p>{formattedPrice}</p>
       </div>
       }

@@ -29,12 +29,12 @@ function FeaturedProducts() {
   
 
   return ( 
-    <>
+    <section className="mt-20">
       <h2 className="text-3xl font-medium">Featured products</h2>
       <div className="divider "></div>
       {loading && <SkeletonGrid />}
       {!loading && <ProductGrid products={products}/>}
-    </>
+    </section>
   );
 }
 
