@@ -3,9 +3,11 @@ import { Product } from "../types/types";
 import axios from "axios";
 import { BsList } from "react-icons/bs";
 import { HiOutlineSquares2X2 } from "react-icons/hi2";
-import Pagination from "../components/UI/Pagination";
-import ProductGrid from "../components/UI/ProductGrid";
-import SkeletonGrid from "../components/UI/Skeletongrid";
+import Pagination from "../components/Pagination";
+import ProductGrid from "../components/Products/ProductGrid";
+import SkeletonGrid from "../components/Skeletongrid";
+import ProductFilter from "../components/Products/ProductFilter";
+import { useLocation } from "react-router";
 
 function Products() {
   const [products, setProducts] = useState<Product[]>([])
@@ -14,13 +16,14 @@ function Products() {
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(true)
   const [list, setList] = useState(false)
-
+  const url = useLocation().search
+  console.log(url);
   
   useEffect(() => {
     async function fetchAllProducts() {
       try {
         setLoading(true)
-        const response = await axios.get('https://strapi-store-server.onrender.com/api/products?page=1')
+        const response = await axios.get(`https://strapi-store-server.onrender.com/api/products${url}`)
         setProducts(response.data.data)
         setTotalProducts(response.data.meta.pagination.total)
         setLoading(false)
@@ -31,16 +34,29 @@ function Products() {
     fetchAllProducts()
   }, [])
 
-  async function onPageChange(page: number) {
+  async function onPageChange(url: string) {
      try {
       setLoading(true)
-      const response = await axios.get(`https://strapi-store-server.onrender.com/api/products?page=${page}`)
+      const response = await axios.get(`https://strapi-store-server.onrender.com/api/products?${url}`)
       setProducts(response.data.data)
     } catch (error: any) {
       setError(error.message)
     } finally {
       setLoading(false)
     }
+  }
+
+  async function filterProducts(url: string) {
+    try {
+      setLoading(true)
+      const response = await axios.get(`https://strapi-store-server.onrender.com/api/products?${url}`)
+
+      setProducts(response.data.data)
+      setTotalProducts(response.data.meta.pagination.total)
+      setLoading(false)
+    } catch (error: any) {
+      setError(error.message)
+    } 
   }
 
   if (error) {
@@ -50,7 +66,8 @@ function Products() {
   return ( 
     <>
       {/* filter */}
-      <section className="py-20">
+      <ProductFilter filterProducts={filterProducts}/>
+      <section className="pb-20 mt-8">
           <div className="flex justify-between items-center mt-8">
             <p className="font-medium">{totalProducts} products</p>
             <div className="flex gap-5">
@@ -72,7 +89,7 @@ function Products() {
           </div>
           <div className="divider" />
           {loading && <SkeletonGrid list={list}/>}
-          {!loading && 
+          {!loading && products.length !== 0 &&
           <>
             <ProductGrid products={products} list={list}/>
             <div className="flex justify-end">

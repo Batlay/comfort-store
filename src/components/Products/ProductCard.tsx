@@ -1,5 +1,5 @@
-import { Product } from "../types/types";
-import { formatPriceInUSD } from "../utils/format";
+import { Product } from "../../types/types";
+import { formatPriceInUSD } from "../../utils/format";
 
 function ProductCard({product, list}: {product: Product, list: boolean}) {
   const {price} = product.attributes

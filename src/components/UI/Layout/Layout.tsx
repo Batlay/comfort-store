@@ -1,7 +1,7 @@
 import { Outlet } from "react-router";
-import Navbar from "./Navbar";
-import Header from "./UI/Header";
-import Container from "./UI/Container";
+import Navbar from "../Header/Navbar";
+import Header from "../Header/Header";
+import Container from "../Container/Container";
 
 function Layout() {
   return ( 

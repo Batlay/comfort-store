@@ -1,6 +1,6 @@
 import { BsCart2 } from "react-icons/bs";
 import { NavLink } from "react-router-dom";
-import ThemeSwitcher from "./UI/ThemeSwitcher";
+import ThemeSwitcher from "../../ThemeSwitcher";
 
 function Navbar() {
   return ( 

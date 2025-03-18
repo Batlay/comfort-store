@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { Product } from "../types/types";
+import { Product } from "../../types/types";
 import axios from "axios";
-import ProductGrid from "./UI/ProductGrid";
-import SkeletonGrid from "./UI/Skeletongrid";
+import ProductGrid from "./ProductGrid";
+import SkeletonGrid from "../Skeletongrid";
 
 function FeaturedProducts() {
   const [products, setProducts] = useState<Product[]>([])
@@ -29,7 +29,7 @@ function FeaturedProducts() {
   
 
   return ( 
-    <section className="mt-20">
+    <section className="my-20">
       <h2 className="text-3xl font-medium">Featured products</h2>
       <div className="divider "></div>
       {loading && <SkeletonGrid />}

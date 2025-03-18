@@ -4,24 +4,32 @@ import { useSearchParams } from "react-router";
 interface PaginationProps{
   totalProducts: number,
   productsPerPage: number,
-  onPageChange: (page: number) => void
+  onPageChange: (page: string) => void
 }
 
 function Pagination({totalProducts, productsPerPage, onPageChange}: PaginationProps) {
-  const [search, setSearch] = useSearchParams()
-  const [currentPage, setCurrentPage] = useState<number>(Number(search.get('page')) || 1)
+  const [searchParams, setSearchParams] = useSearchParams()
+  const [currentPage, setCurrentPage] = useState<number>(Number(searchParams.get('page')) || 1)
 
   const totalPages = Math.ceil(totalProducts / productsPerPage)
   const pages = Array.from({length: totalPages}, (_, i) => i + 1)
 
   function handlePageChange(page: number) {
-    if (page <= 0) return
+    if (page <= 0 || page === currentPage) return
     if (page > totalPages) return
 
-    setCurrentPage(page)
-    onPageChange(page)
+    setSearchParams((prevParams) => {
+      prevParams.set('page', page.toString())
+      return prevParams
+    })
 
-    setSearch({page: page.toString()});
+    let queryParams = []
+    for (const [key, value] of searchParams.entries()) {
+      queryParams.push(`${key}=${value}`)
+    }
+    
+    setCurrentPage(page)
+    onPageChange(queryParams.join('&'))
   }
 
   return ( 

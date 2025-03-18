@@ -1,5 +1,3 @@
-import Container from "../components/UI/Container";
-
 function AboutPage() {
   return ( 
     <section className="mt-20">
@@ -7,7 +5,7 @@ function AboutPage() {
         <h1 className="text-4xl font-bold leading-none tracking-tight sm:text-6xl">We love</h1>
         <div className="stats bg-primary shadow">
           <div className="stat">
-            <div className="stat-title text-primary-content text-4xl font-bold tracking-widest">comfy
+            <div className="stat-title text-primary-content text-4xl font-bold tracking-widest">comfort
           </div>
         </div>
       </div>

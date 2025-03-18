@@ -1,4 +1,4 @@
-import FeaturedProducts from "../components/FeaturedProducts"
+import FeaturedProducts from "../components/Products/FeaturedProducts"
 import Hero from "../components/Hero"
 
 function App() {
