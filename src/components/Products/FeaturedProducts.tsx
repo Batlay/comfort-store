@@ -1,5 +1,5 @@
 import ProductGrid from "./ProductGrid";
-import SkeletonGrid from "../Skeletongrid";
+import SkeletonGrid from "../UI/Skeletongrid";
 import { useFetchProducts } from "../../hooks/hooks";
 
 const { VITE_API_ENDPOINT } = import.meta.env
@@ -7,7 +7,7 @@ const { VITE_API_ENDPOINT } = import.meta.env
 function FeaturedProducts() {
   const url = `${VITE_API_ENDPOINT}/products?featured=true`
   const queryKey = 'featured_products'
-  
+
   const {data: productsData, isLoading, error} = useFetchProducts(url, queryKey)
 
   const products = productsData?.data
@@ -17,7 +17,7 @@ function FeaturedProducts() {
   }
 
   return ( 
-    <section className="mt-20 ">
+    <section className="mt-30 ">
       <h2 className="text-3xl font-medium">Featured products</h2>
       <div className="divider "></div>
       {isLoading && <SkeletonGrid />}

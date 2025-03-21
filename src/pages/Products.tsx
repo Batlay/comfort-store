@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { BsList } from "react-icons/bs";
 import { HiOutlineSquares2X2 } from "react-icons/hi2";
-import Pagination from "../components/Pagination";
+import Pagination from "../components/UI/Pagination";
 import ProductGrid from "../components/Products/ProductGrid";
-import SkeletonGrid from "../components/Skeletongrid";
+import SkeletonGrid from "../components/UI/Skeletongrid";
 import ProductFilter from "../components/Products/ProductFilter";
 import { useFetchProducts } from "../hooks/hooks";
 
@@ -30,20 +30,20 @@ function Products() {
       <div className="mt-8">
           <div className="flex justify-between items-center mt-8">
             <p className="font-medium">{total} products</p>
-            <div className="flex gap-5">
+            <div className="flex gap-2">
               <button 
                 onClick={() => setList(false)} 
-                className={`border rounded-full p-1 transition-all duration-500 ease-in-out 
+                className={`border rounded-full p-2 transition-all duration-500 ease-in-out cursor-pointer 
                   ${list ? 'hover:text-base-400 border-transparent' : 'border-base-500 bg-base-100'}`}
               >
-                <HiOutlineSquares2X2 size={20} className="cursor-pointer"/>
+                <HiOutlineSquares2X2 size={20} />
               </button>
               <button 
                 onClick={() => setList(true)} 
-                className={`border rounded-full p-1 transition-all duration-500 ease-in-out 
+                className={`border rounded-full p-2 transition-all duration-500 ease-in-out cursor-pointer
                   ${list ? 'border-base-500 bg-base-100' : 'hover:text-base-400 border-transparent bg-transparent'}`}
                 >
-                <BsList size={20} className="cursor-pointer"/>
+                <BsList size={20} />
               </button>
             </div>
           </div>

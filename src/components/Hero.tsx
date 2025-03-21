@@ -1,4 +1,17 @@
 import { NavLink } from "react-router";
+import SimpleImageSlider from "react-simple-image-slider";
+import hero1 from '../assets/hero1.webp';
+import hero2 from '../assets/hero2.webp';
+import hero3 from '../assets/hero3.webp';
+import hero4 from '../assets/hero4.webp';
+
+const images = [
+  { url: hero1 },
+  { url: hero2 },
+  { url: hero3 },
+  { url: hero4 },
+];
+
 
 function Hero() {
   return ( 
@@ -10,8 +23,16 @@ function Hero() {
           <NavLink to={'/products'}>Our products</NavLink>
         </button>
       </div>
-      <div className="basis-1/2 bg-blue-950 w-full h-[448px]">
-      
+      <div className="basis-1/2 bg-blue-950 h-[448px] p-[30px] flex rounded-lg">
+
+        <SimpleImageSlider
+          width={400}
+          height={500}
+          images={images}
+          showBullets={false}
+          showNavs={true}
+        />
+
       </div>
     </section>
   );

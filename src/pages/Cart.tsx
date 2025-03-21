@@ -2,15 +2,15 @@ import { useAppDispatch, useAppSelector } from "../features/hooks";
 import { formatPriceInUSD } from "../utils/format";
 import { FaPlus } from "react-icons/fa6";
 import { FaMinus } from "react-icons/fa";
-import { addToCart, decreaseAmount, ICart, removeFromCart } from "../features/cart/cartSlice";
+import { increaseAmount, decreaseAmount, ICart, removeFromCart } from "../features/cart/cartSlice";
 import { MdDeleteOutline } from "react-icons/md";
 
 function CartPage() {
   const cart = useAppSelector((state) => state.cart.cart)
   const dispatch = useAppDispatch()
 
-  function increaseAmount(product: ICart) {
-    dispatch(addToCart(product))
+  function increaseAmountOfProduct(product: ICart) {
+    dispatch(increaseAmount(product))
   }
 
   function decreaseAmountOfProduct(product: ICart) {
@@ -29,6 +29,7 @@ function CartPage() {
   const tax = totalPrice * 0.1
 
   const totalOrder = totalPrice + tax + shipping
+  console.log(cart);
 
   return ( 
     <section className="py-20">
@@ -52,17 +53,21 @@ function CartPage() {
                 </p>
               </div>
               <div className="ml-12 bg-base-300 rounded-lg flex flex-row justify-between items-center h-[30px] gap-3">
-                <button className="cursor-pointer text-xl text-primary font-medium text-center p-2" onClick={() => decreaseAmountOfProduct(product)}>
+                <button 
+                  className={`cursor-pointer text-xl font-medium text-center p-2 ${product.amount === 1 ?'text-gray-300' : 'text-primary'}`} 
+                  onClick={() => decreaseAmountOfProduct(product)}>
                   <FaMinus size={14}/>
                 </button>
                 <span className="text-center font-medium text-sm w-[10px]">{product.amount}</span>
-                <button className="cursor-pointer text-xl text-primary font-medium text-center p-2" onClick={() => increaseAmount(product)}>
+                <button 
+                  className="cursor-pointer text-xl text-primary font-medium text-center p-2" 
+                  onClick={() => increaseAmountOfProduct(product)}>
                     <FaPlus size={14}/>
                 </button>
               </div>
               <div className='sm: ml-auto flex items-end flex-col justify-between'>
                 <p className="font-medium sm: ml-auto">{formatPriceInUSD(price)}</p>
-                <button className="cursor-pointer" onClick={() => removeProductFromCart(product)}>
+                <button className="cursor-pointer p-2" onClick={() => removeProductFromCart(product)}>
                     <MdDeleteOutline className='sm: ml-auto' size={20}/>
                 </button>
               </div>

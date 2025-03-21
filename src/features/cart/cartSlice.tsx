@@ -25,7 +25,7 @@ const cartSlice = createSlice({
   reducers: {
     addToCart: (state, action: PayloadAction<ICart>) => {
       // увеличим количество продукта, если продукт с таким id уже есть в корзине
-      const productInCart = state.cart.find(product => product.id === action.payload.id)
+      const productInCart = state.cart.find(product => product.id === action.payload.id && product.color === action.payload.color)
       if (!productInCart) {
         state.cart.push({...action.payload, amount: 1})
       } else {
@@ -33,22 +33,29 @@ const cartSlice = createSlice({
       }
     },
     removeFromCart: (state, action: PayloadAction<ICart>) => {
-      state.cart = state.cart.filter(product => product.id !== action.payload.id)
+      state.cart = state.cart.filter(product => product.id !== action.payload.id || product.color !== action.payload.color)
     },
     decreaseAmount: (state, action: PayloadAction<ICart>) => {
-      const product = state.cart.find(product => product.id === action.payload.id)
+      const product = state.cart.find(product => product.id === action.payload.id && product.color === action.payload.color)
 
       if (!product) return
 
       if (product.amount === 1) {
-        state.cart = state.cart.filter(product => product.id !== action.payload.id)
+        return
       } else {
         product.amount! -= 1
       }
+    },
+    increaseAmount: (state, action: PayloadAction<ICart>) => {
+      const product = state.cart.find(product => product.id === action.payload.id && product.color === action.payload.color)
+
+      if (!product) return
+
+      product.amount! += 1
     }
   }
 })
 
-export const {addToCart, removeFromCart, decreaseAmount} = cartSlice.actions
+export const {addToCart, removeFromCart, decreaseAmount, increaseAmount} = cartSlice.actions
 
 export const cartReducer = cartSlice.reducer
