@@ -1,11 +1,7 @@
-function Container({children, className}: {children:React.ReactNode, className?: string}) {
-  const classes = `mx-auto w-[1080px] ${className || ''}`
-
+function Container({children}: {children:React.ReactNode}) {
   return ( 
-   <div className="flex justify-center min-h-screen">
-     <div className={classes}>
-        {children}
-     </div>
+   <div className="mx-auto w-[1080px]">
+      {children}
    </div>
   );
 }

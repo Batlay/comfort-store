@@ -1,75 +1,34 @@
-import { useEffect, useState } from "react";
-import { Product } from "../types/types";
-import axios from "axios";
+import { useState } from "react";
 import { BsList } from "react-icons/bs";
 import { HiOutlineSquares2X2 } from "react-icons/hi2";
 import Pagination from "../components/Pagination";
 import ProductGrid from "../components/Products/ProductGrid";
 import SkeletonGrid from "../components/Skeletongrid";
 import ProductFilter from "../components/Products/ProductFilter";
-import { useLocation } from "react-router";
+import { useFetchProducts } from "../hooks/hooks";
 
 function Products() {
-  const [products, setProducts] = useState<Product[]>([])
-  const [totalProducts, setTotalProducts] = useState<number>(0)
-
-  const [error, setError] = useState(null)
-  const [loading, setLoading] = useState(true)
   const [list, setList] = useState(false)
-  const url = useLocation().search
-  console.log(url);
+
+  const url = 'https://strapi-store-server.onrender.com/api/products'
+  const queryKey = 'products'
+
+  const {data: productsData, isPending, error} = useFetchProducts(url, queryKey)
   
-  useEffect(() => {
-    async function fetchAllProducts() {
-      try {
-        setLoading(true)
-        const response = await axios.get(`https://strapi-store-server.onrender.com/api/products${url}`)
-        setProducts(response.data.data)
-        setTotalProducts(response.data.meta.pagination.total)
-        setLoading(false)
-      } catch (error: any) {
-        setError(error.message)
-      } 
-    }
-    fetchAllProducts()
-  }, [])
-
-  async function onPageChange(url: string) {
-     try {
-      setLoading(true)
-      const response = await axios.get(`https://strapi-store-server.onrender.com/api/products?${url}`)
-      setProducts(response.data.data)
-    } catch (error: any) {
-      setError(error.message)
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  async function filterProducts(url: string) {
-    try {
-      setLoading(true)
-      const response = await axios.get(`https://strapi-store-server.onrender.com/api/products?${url}`)
-
-      setProducts(response.data.data)
-      setTotalProducts(response.data.meta.pagination.total)
-      setLoading(false)
-    } catch (error: any) {
-      setError(error.message)
-    } 
-  }
+  const products = productsData?.data
+  const total = productsData?.meta.pagination.total || 0
+  const pageSize = productsData?.meta.pagination.pageSize || 10
 
   if (error) {
-    <p>{error}</p>
+    <p>{error.message}</p>
   }
 
   return ( 
-    <>
-      {/* filter */}
-      <ProductFilter filterProducts={filterProducts}/>
-      <section className="pb-20 mt-8">
+    <section className="py-20 pl-[calc(100vw - 100%)]">
+      <ProductFilter/>
+      <div className="mt-8">
           <div className="flex justify-between items-center mt-8">
-            <p className="font-medium">{totalProducts} products</p>
+            <p className="font-medium">{total} products</p>
             <div className="flex gap-5">
               <button 
                 onClick={() => setList(false)} 
@@ -88,16 +47,16 @@ function Products() {
             </div>
           </div>
           <div className="divider" />
-          {loading && <SkeletonGrid list={list}/>}
-          {!loading && products.length !== 0 &&
+          {isPending && <SkeletonGrid list={list}/>}
+          {products &&
           <>
             <ProductGrid products={products} list={list}/>
             <div className="flex justify-end">
-              <Pagination totalProducts={totalProducts} productsPerPage={10} onPageChange={onPageChange}/>
+              <Pagination totalProducts={total} productsPerPage={pageSize} />
             </div>
           </>}
-      </section>
-    </>
+      </div>
+    </section>
   );
 }
 

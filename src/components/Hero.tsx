@@ -1,6 +1,6 @@
 function Hero() {
   return ( 
-    <section className="flex justify-between items-center gap-10 h-[28rem] mt-20">
+    <section className="flex justify-between items-center gap-10 h-[28rem]">
       <div className="basis-1/2 py-10">
         <h1 className="text-6xl font-medium">We are changing the way people shop</h1>
         <p className="text-lg mt-8">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit veniam dolor deleniti possimus odio obcaecati saepe delectus recusandae.</p>

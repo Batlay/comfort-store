@@ -4,10 +4,9 @@ import { useSearchParams } from "react-router";
 interface PaginationProps{
   totalProducts: number,
   productsPerPage: number,
-  onPageChange: (page: string) => void
 }
 
-function Pagination({totalProducts, productsPerPage, onPageChange}: PaginationProps) {
+function Pagination({totalProducts, productsPerPage}: PaginationProps) {
   const [searchParams, setSearchParams] = useSearchParams()
   const [currentPage, setCurrentPage] = useState<number>(Number(searchParams.get('page')) || 1)
 
@@ -23,13 +22,7 @@ function Pagination({totalProducts, productsPerPage, onPageChange}: PaginationPr
       return prevParams
     })
 
-    let queryParams = []
-    for (const [key, value] of searchParams.entries()) {
-      queryParams.push(`${key}=${value}`)
-    }
-    
     setCurrentPage(page)
-    onPageChange(queryParams.join('&'))
   }
 
   return ( 

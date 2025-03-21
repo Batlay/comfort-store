@@ -3,3 +3,8 @@
 @plugin "daisyui" {
    themes: light --default, dark --prefersdark;
 }
+
+html {
+   width: 100vw;
+   overflow-x: hidden;
+}

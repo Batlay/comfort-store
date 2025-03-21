@@ -9,11 +9,7 @@ const categoryOptions = ['all', 'Tables', 'Chairs', 'Kids', 'Sofas', 'Beds']
 const companyOptions = ['all', 'Modenza', 'Luxora', 'Artifex', 'Comfora', 'Homestead']
 const sortOptions = ['a-z', 'z-a', 'high', 'low']
 
-interface ProductFilterProps {
- filterProducts: (url: string) => void
-}
-
-function ProductFilter({filterProducts}: ProductFilterProps) {
+function ProductFilter() {
   const [searchParams, setSearchParams] = useSearchParams()
 
   function getFormData(formData: FormData) {
@@ -31,20 +27,14 @@ function ProductFilter({filterProducts}: ProductFilterProps) {
     if (!paramsObject.hasOwnProperty('shipping')) {
       searchParams.delete('shipping')
     }
+
     searchParams.delete('page')
-    
-    const queryParams = []
-
-    for (const [key, value] of searchParams.entries()) {
-      queryParams.push(`${key}=${value}`)
-    }
-
-    filterProducts(queryParams.join('&'))
   }
 
   return ( 
-    <section className="mt-20 w-full bg-base-300 px-8 py-4 rounded-xl">
-      <form className="grid grid-cols-4 gap-x-4 gap-y-8 items-center" action={getFormData}>
+    <div className="w-full">
+      <div className=" bg-base-300 px-8 py-4 rounded-xl">
+        <form className="grid grid-cols-4 gap-x-4 gap-y-8 items-center" action={getFormData}>
         <Input label="search product" name='search'/>
 
         <SelectInput label='select category' name='category' options={categoryOptions}/>
@@ -64,7 +54,8 @@ function ProductFilter({filterProducts}: ProductFilterProps) {
         <button className="uppercase btn btn-primary rounded-xl btn-sm" type="submit">select</button>
         <button className="uppercase font-medium btn btn-secondary rounded-xl btn-sm">reset</button>
       </form>
-    </section>
+      </div>
+    </div>
   );
 }
 

@@ -1,11 +1,13 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './pages/Home.tsx'
+import Home from './pages/Home.tsx'
 import { createBrowserRouter, RouterProvider } from 'react-router'
 import AboutPage from './pages/About.tsx'
 import Products from './pages/Products.tsx'
 import Layout from './components/UI/Layout/Layout.tsx'
+import SingleProduct from './pages/SingleProduct.tsx'
+import './index.css'
+import CartPage from './pages/Cart.tsx'
 
  const router = createBrowserRouter([
   {
@@ -13,7 +15,7 @@ import Layout from './components/UI/Layout/Layout.tsx'
     children: [
       {
         path: '/',
-        element: <App />
+        element: <Home />
       },
       {
         path: "about",
@@ -26,6 +28,14 @@ import Layout from './components/UI/Layout/Layout.tsx'
       {
         path: '/products',
         element: <Products />
+      },
+      {
+        path: '/products/:id',
+        element: <SingleProduct />
+      },
+      {
+        path: '/cart',
+        element: <CartPage />
       },
     ],
   },
