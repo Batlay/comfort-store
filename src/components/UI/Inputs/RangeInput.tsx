@@ -1,5 +1,6 @@
 import { ComponentPropsWithoutRef, useState } from "react";
 import { formatPriceInUSD } from "../../../utils/format";
+import { useFormContext } from "react-hook-form";
 
 interface InputProps extends ComponentPropsWithoutRef<"input"> {
   label: string,
@@ -10,7 +11,7 @@ function RangeInput({label, name}: InputProps) {
   const step = 1000;
   const maxPrice = 100000;
   const [selectedPrice, setSelectedPrice] = useState(maxPrice);
-  
+  const {register} = useFormContext()
 
   return ( 
     <div className={`flex flex-col gap-y-3`}>
@@ -19,7 +20,7 @@ function RangeInput({label, name}: InputProps) {
         <span>{formatPriceInUSD(selectedPrice)}</span>
       </label>
       <input 
-        name={name} 
+        {...register(name)}
         type='range' 
         min={0}
         max={maxPrice}

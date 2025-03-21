@@ -4,9 +4,13 @@ import { useAppDispatch } from "../features/hooks";
 import { formatPriceInUSD } from "../utils/format";
 import { useFetchSingleProduct } from "../hooks/hooks";
 import Loading from "../components/UI/Loading";
+import { useState } from "react";
 
 function SingleProduct() {
   const { id } = useParams()
+  const [selectedColor, setSelectedColor] = useState('')
+  const [message, setMessage] = useState('')
+  
   const dispatch = useAppDispatch()
 
   const {data: product, isPending, error} = useFetchSingleProduct(id!)
@@ -23,10 +27,23 @@ function SingleProduct() {
     return <p>Product not found</p>
   }
 
-  const {title, company, price, description, colors} = product.attributes
+  const {title, company, price, description, colors, category, image} = product.attributes
 
   function addProductToCart() {
-    dispatch(addToCart(product!))
+    if (!selectedColor) {
+      setMessage('*please, choose a color*')
+      return
+    }
+    const cartProduct = {
+      id: product!.id,
+      title: title,
+      company: company,
+      price: price,
+      color: selectedColor,
+      category: category,
+      image: image,
+    }
+    dispatch(addToCart(cartProduct))
   }
 
   return ( 
@@ -55,10 +72,13 @@ function SingleProduct() {
             <h4 className="font-medium capitalize text-md tracking-wider">colors</h4>
             <div className="mt-2">
               {colors.map(color => 
-                <button className='btn btn-sm rounded-full w-[24px] h-[24px] mr-2 border-2 border-neutral p-0' style={{backgroundColor: color}}></button>
+                <button 
+                  className={`btn btn-sm rounded-full w-[24px] h-[24px] mr-2 ${selectedColor === color && 'border-2 border-neutral p-0'} `}
+                  style={{backgroundColor: color}} onClick={() => setSelectedColor(color)} />
               )}
             </div>
           </div>
+          <p className="mt-2">{message}</p>
           <button 
             className="btn btn-primary mt-10 capitalize"
             onClick={addProductToCart}

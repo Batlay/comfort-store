@@ -1,8 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Product } from "../../types/types";
 
-export interface ICart extends Product {
-  amount: number,
+export interface ICart {
+    id: string,
+    title: string,
+    company: string,
+    price: number,
+    color: string,
+    category: string,
+    image: string,
+    amount?: number,
 }
 
 interface CartState {
@@ -17,13 +23,13 @@ const cartSlice = createSlice({
   name: 'cart',
   initialState: initialState,
   reducers: {
-    addToCart: (state, action: PayloadAction<Product>) => {
-      // если продукт с таким id уже есть в корзине, увеличим количество продукта
+    addToCart: (state, action: PayloadAction<ICart>) => {
+      // увеличим количество продукта, если продукт с таким id уже есть в корзине
       const productInCart = state.cart.find(product => product.id === action.payload.id)
       if (!productInCart) {
         state.cart.push({...action.payload, amount: 1})
       } else {
-        productInCart.amount += 1
+        productInCart.amount! += 1
       }
     },
     removeFromCart: (state, action: PayloadAction<ICart>) => {
@@ -37,7 +43,7 @@ const cartSlice = createSlice({
       if (product.amount === 1) {
         state.cart = state.cart.filter(product => product.id !== action.payload.id)
       } else {
-        product.amount -= 1
+        product.amount! -= 1
       }
     }
   }

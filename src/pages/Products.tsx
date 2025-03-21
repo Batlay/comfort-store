@@ -9,8 +9,9 @@ import { useFetchProducts } from "../hooks/hooks";
 
 function Products() {
   const [list, setList] = useState(false)
-
-  const url = 'https://strapi-store-server.onrender.com/api/products'
+  const { API_ENDPOINT } = process.env;
+  
+  const url = `${API_ENDPOINT}/products`
   const queryKey = 'products'
 
   const {data: productsData, isPending, error} = useFetchProducts(url, queryKey)

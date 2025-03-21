@@ -7,7 +7,7 @@ function Navbar() {
   const cartItems = useAppSelector((state) => state.cart.cart)
 
   const totalItems = cartItems.reduce((acc, product) => {
-    return acc += product.amount
+    return acc += product.amount!
   }, 0)
 
   const isActiveNavLink = ({isActive}: {isActive: boolean}) => {

@@ -2,8 +2,10 @@ import ProductGrid from "./ProductGrid";
 import SkeletonGrid from "../Skeletongrid";
 import { useFetchProducts } from "../../hooks/hooks";
 
+const { API_ENDPOINT } = process.env
+
 function FeaturedProducts() {
-  const url = 'https://strapi-store-server.onrender.com/api/products?featured=true'
+  const url = `${API_ENDPOINT}?featured=true`
   const queryKey = 'featured_products'
   const {data: productsData, isLoading, error} = useFetchProducts(url, queryKey)
 
