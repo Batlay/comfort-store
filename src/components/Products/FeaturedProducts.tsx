@@ -2,11 +2,12 @@ import ProductGrid from "./ProductGrid";
 import SkeletonGrid from "../Skeletongrid";
 import { useFetchProducts } from "../../hooks/hooks";
 
-const { API_ENDPOINT } = process.env
+const { VITE_API_ENDPOINT } = import.meta.env
 
 function FeaturedProducts() {
-  const url = `${API_ENDPOINT}?featured=true`
+  const url = `${VITE_API_ENDPOINT}/products?featured=true`
   const queryKey = 'featured_products'
+  
   const {data: productsData, isLoading, error} = useFetchProducts(url, queryKey)
 
   const products = productsData?.data

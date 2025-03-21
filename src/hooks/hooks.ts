@@ -3,7 +3,7 @@ import axios from "axios"
 import { useLocation } from "react-router"
 import { IProduct, Product } from "../types/types"
 
-const { API_ENDPOINT } = process.env;
+const { VITE_API_ENDPOINT } = import.meta.env;
 
 export const useFetchProducts = (apiURL: string, queryKey: string) => {
   const location = useLocation()
@@ -24,7 +24,7 @@ export const useFetchSingleProduct = (id: string) => {
   return useQuery({
     queryKey: ['product', id],
     queryFn: async () => {
-      const response = await axios.get(`${API_ENDPOINT}/products/${id}`)
+      const response = await axios.get(`${VITE_API_ENDPOINT}/products/${id}`)
       return response.data.data as Product
     }
   })

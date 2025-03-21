@@ -9,9 +9,9 @@ import { useFetchProducts } from "../hooks/hooks";
 
 function Products() {
   const [list, setList] = useState(false)
-  const { API_ENDPOINT } = process.env;
+  const { VITE_API_ENDPOINT } = import.meta.env;
   
-  const url = `${API_ENDPOINT}/products`
+  const url = `${VITE_API_ENDPOINT}/products`
   const queryKey = 'products'
 
   const {data: productsData, isPending, error} = useFetchProducts(url, queryKey)
