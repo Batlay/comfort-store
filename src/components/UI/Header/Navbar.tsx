@@ -5,6 +5,7 @@ import { useAppSelector } from "../../../features/hooks";
 
 function Navbar() {
   const cartItems = useAppSelector((state) => state.cart.cart)
+  const isAuth = useAppSelector((state) => state.auth.isAuth)
 
   const totalItems = cartItems.reduce((acc, product) => {
     return acc += product.amount!
@@ -55,6 +56,16 @@ function Navbar() {
             <NavLink to='/cart' className={isActiveNavLink}>
               Cart
             </NavLink>
+            {isAuth &&
+            <>
+              <NavLink to='/checkout' className={isActiveNavLink}>
+                Checkout
+              </NavLink>
+              <NavLink to='/orders' className={isActiveNavLink}>
+                Orders
+              </NavLink>
+            </>
+            }
           </div>
           <div className="flex justify-between gap-5 items-center">
             <ThemeSwitcher />

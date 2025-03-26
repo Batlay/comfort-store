@@ -1,7 +1,7 @@
 import FeaturedProducts from "../components/Products/FeaturedProducts"
 import Hero from "../components/Hero"
 
-function Home() {
+function HomePage() {
   return (
     <section className="py-20">
       <Hero />
@@ -10,4 +10,4 @@ function Home() {
   )
 }
 
-export default Home
+export default HomePage

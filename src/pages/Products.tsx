@@ -5,9 +5,9 @@ import Pagination from "../components/UI/Pagination";
 import ProductGrid from "../components/Products/ProductGrid";
 import SkeletonGrid from "../components/UI/Skeletongrid";
 import ProductFilter from "../components/Products/ProductFilter";
-import { useFetchProducts } from "../hooks/hooks";
+import { useFetchProducts } from "../services/api/api";
 
-function Products() {
+function ProductsPage() {
   const [list, setList] = useState(false)
   const { VITE_API_ENDPOINT } = import.meta.env;
   
@@ -52,8 +52,8 @@ function Products() {
           {products &&
           <>
             <ProductGrid products={products} list={list}/>
-            <div className="flex justify-end">
-              <Pagination totalProducts={total} productsPerPage={pageSize} />
+            <div className="flex justify-center">
+              <Pagination totalItems={total} itemsPerPage={pageSize} />
             </div>
           </>}
       </div>
@@ -61,4 +61,4 @@ function Products() {
   );
 }
 
-export default Products;
+export default ProductsPage;

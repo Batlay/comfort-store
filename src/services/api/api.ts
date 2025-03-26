@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query"
 import axios from "axios"
 import { useLocation } from "react-router"
-import { IProduct, Product } from "../types/types"
+import { IOrderResponse, IProduct, Product } from "../../types/types"
 
 const { VITE_API_ENDPOINT } = import.meta.env;
 
@@ -19,8 +19,6 @@ export const useFetchProducts = (apiURL: string, queryKey: string) => {
 }
 
 export const useFetchSingleProduct = (id: string) => {
-
-
   return useQuery({
     queryKey: ['product', id],
     queryFn: async () => {
@@ -29,3 +27,21 @@ export const useFetchSingleProduct = (id: string) => {
     }
   })
 }
+
+export const useFetchOrders = (token: string) => {
+  const location = useLocation()
+  const searchParams = location.search
+
+  return useQuery({
+    queryKey: ['orders', searchParams],
+    queryFn: async () => {
+      const response = await axios.get<IOrderResponse>(`${VITE_API_ENDPOINT}/orders${searchParams}`, {
+        headers: {
+          'Authorization': token
+        }
+      })
+      return response.data
+    }
+  })
+}
+

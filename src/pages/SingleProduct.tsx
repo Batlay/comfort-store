@@ -1,12 +1,13 @@
 import { NavLink, useParams } from "react-router";
 import { addToCart } from "../features/cart/cartSlice";
 import { useAppDispatch } from "../features/hooks";
-import { formatPriceInUSD } from "../utils/format";
-import { useFetchSingleProduct } from "../hooks/hooks";
+import { formatPriceInUSD } from "../utils/formatting";
+import { useFetchSingleProduct } from "../services/api/api";
 import Loading from "../components/UI/Loading";
 import { useState } from "react";
+import { Slide, ToastContainer, toast } from 'react-toastify';
 
-function SingleProduct() {
+function SingleProductPage() {
   const { id } = useParams()
   const [selectedColor, setSelectedColor] = useState('')
   const [message, setMessage] = useState('')
@@ -27,7 +28,7 @@ function SingleProduct() {
     return <p>Product not found</p>
   }
 
-  const {title, company, price, description, colors, category, image} = product.attributes
+  const {title, company, price, description, colors, image} = product.attributes
 
   function addProductToCart() {
     if (!selectedColor) {
@@ -35,15 +36,27 @@ function SingleProduct() {
       return
     }
     const cartProduct = {
-      id: product!.id,
+      productId: product!.id,
       title: title,
       company: company,
       price: price,
-      color: selectedColor,
-      category: category,
+      productColor: selectedColor,
       image: image,
+      cartId: `${product?.id}${selectedColor}`
     }
+
     dispatch(addToCart(cartProduct))
+    toast.success('Product have been added to cart', {
+      position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      transition: Slide,
+    });
   }
 
   return ( 
@@ -66,7 +79,7 @@ function SingleProduct() {
         <div>
           <h2 className="font-bold text-3xl capitalize">{title}</h2>
           <h4 className="font-bold text-xl text-neutral-content capitalize mt-2">{company}</h4>
-          <p className="text-xl mt-3">{formatPriceInUSD(price)}</p>
+          <p className="text-xl mt-3">{formatPriceInUSD(+price)}</p>
           <p className="leading-8 mt-6">{description}</p>
           <div className="mt-6">
             <h4 className="font-medium capitalize text-md tracking-wider">colors</h4>
@@ -87,8 +100,21 @@ function SingleProduct() {
           </button>
         </div>
       </div>
+      <ToastContainer
+        position="bottom-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover={false}
+        theme="dark"
+        transition={Slide}
+        />
     </section>
   );
 }
 
-export default SingleProduct;
+export default SingleProductPage;

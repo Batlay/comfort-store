@@ -1,5 +1,5 @@
 import { useSearchParams } from "react-router";
-import { formatPriceInUSD } from "../../utils/format";
+import { formatPriceInUSD } from "../../utils/formatting";
 import Input from "../UI/Inputs/Input";
 import SelectInput from "../UI/Inputs/SelectInput";
 import RangeInput from "../UI/Inputs/RangeInput";

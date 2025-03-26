@@ -1,6 +1,6 @@
 import ProductGrid from "./ProductGrid";
 import SkeletonGrid from "../UI/Skeletongrid";
-import { useFetchProducts } from "../../hooks/hooks";
+import { useFetchProducts } from "../../services/api/api";
 
 const { VITE_API_ENDPOINT } = import.meta.env
 

@@ -1,5 +1,5 @@
 import { ComponentPropsWithoutRef, useState } from "react";
-import { formatPriceInUSD } from "../../../utils/format";
+import { formatPriceInUSD } from "../../../utils/formatting";
 import { useFormContext } from "react-hook-form";
 
 interface InputProps extends ComponentPropsWithoutRef<"input"> {
