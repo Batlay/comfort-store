@@ -1,8 +1,7 @@
 import ProductGrid from "./ProductGrid";
 import SkeletonGrid from "../UI/Skeletongrid";
 import { useFetchProducts } from "../../services/api/api";
-
-const { VITE_API_ENDPOINT } = import.meta.env
+import { VITE_API_ENDPOINT } from "../../shared/constants/constants";
 
 function FeaturedProducts() {
   const url = `${VITE_API_ENDPOINT}/products?featured=true`

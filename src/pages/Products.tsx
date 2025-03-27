@@ -6,10 +6,10 @@ import ProductGrid from "../components/Products/ProductGrid";
 import SkeletonGrid from "../components/UI/Skeletongrid";
 import ProductFilter from "../components/Products/ProductFilter";
 import { useFetchProducts } from "../services/api/api";
+import { VITE_API_ENDPOINT } from "../shared/constants/constants";
 
 function ProductsPage() {
   const [list, setList] = useState(false)
-  const { VITE_API_ENDPOINT } = import.meta.env;
   
   const url = `${VITE_API_ENDPOINT}/products`
   const queryKey = 'products'

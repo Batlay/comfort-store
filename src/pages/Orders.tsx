@@ -12,6 +12,10 @@ function OrdersPage() {
     return <Loading />
   }
 
+  if (error) {
+    return <p>{error.message}</p>
+  }
+
   const total = orders?.meta.pagination.total || 0
   const pageSize = orders?.meta.pagination.pageSize || 10
 

@@ -2,18 +2,18 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useAppDispatch, useAppSelector } from "../features/hooks";
 import { formatPriceInUSD } from "../utils/formatting";
 import Input from "../components/UI/Inputs/Input";
-import { IOrder } from "../types/types";
+import { IOrder } from "../shared/interfaces/orders.interface";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import Loading from "../components/UI/Loading";
 import { Slide, toast, ToastContainer } from "react-toastify";
 import { clearCart } from "../features/cart/cartSlice";
+import { VITE_API_ENDPOINT } from "../shared/constants/constants";
 
 interface ICheckoutForm {
   name: string,
   address: string,
 }
-const { VITE_API_ENDPOINT } = import.meta.env;
 
 function CheckoutPage() {
   const methods = useForm<ICheckoutForm>()

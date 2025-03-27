@@ -1,7 +1,7 @@
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form"
 import Input from "../components/UI/Inputs/Input"
 import { NavLink, useNavigate } from "react-router"
-import { ILoginUser } from "../types/types"
+import { ILoginUser } from "../shared/interfaces/users.interface"
 import { useAppDispatch, useAppSelector } from "../features/hooks"
 import { loginUser } from "../features/auth/authActions"
 import { useEffect } from "react"

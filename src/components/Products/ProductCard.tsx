@@ -1,9 +1,9 @@
-import { Product } from "../../types/types";
+import { Product } from "../../shared/interfaces/products.interface";
 import { formatPriceInUSD } from "../../utils/formatting";
 
 function ProductCard({product, list}: {product: Product, list: boolean}) {
   const {price} = product.attributes
-  const formattedPrice = formatPriceInUSD(price)
+  const formattedPrice = formatPriceInUSD(+price)
 
   return ( 
     <div className={`bg-base-100 shadow-sm rounded-lg ${list ? 'w-full h-[192px] flex flex-col flex-wrap sm:flex-row p-8' : 'w-[356px] h-[332px]'}`}>

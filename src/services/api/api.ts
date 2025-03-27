@@ -1,9 +1,10 @@
 import { useQuery } from "@tanstack/react-query"
 import axios from "axios"
 import { useLocation } from "react-router"
-import { IOrderResponse, IProduct, Product } from "../../types/types"
+import { IProductResponse, Product } from "../../shared/interfaces/products.interface";
+import { IOrderResponse } from "../../shared/interfaces/orders.interface";
+import { VITE_API_ENDPOINT } from "../../shared/constants/constants";
 
-const { VITE_API_ENDPOINT } = import.meta.env;
 
 export const useFetchProducts = (apiURL: string, queryKey: string) => {
   const location = useLocation()
@@ -13,7 +14,7 @@ export const useFetchProducts = (apiURL: string, queryKey: string) => {
     queryKey: [queryKey, searchParams],
     queryFn: async () => {
       const response = await axios.get(`${apiURL}${searchParams}`)
-      return response.data as IProduct
+      return response.data as IProductResponse
     }
   })
 }

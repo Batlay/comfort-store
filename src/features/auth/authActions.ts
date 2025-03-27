@@ -1,8 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { ILoginUser, IRegisterUser } from "../../types/types";
-
-const { VITE_API_ENDPOINT } = import.meta.env;
+import { ILoginUser, IRegisterUser } from "../../shared/interfaces/users.interface";
+import { VITE_API_ENDPOINT } from "../../shared/constants/constants";
 
 export interface authResponse {
   jwt: string,

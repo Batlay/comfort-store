@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from "../features/hooks"
 import { useEffect } from "react"
 import { registerUser } from "../features/auth/authActions"
 import Loading from "../components/UI/Loading"
-import { IRegisterUser } from "../types/types"
+import { IRegisterUser } from "../shared/interfaces/users.interface"
 
 
 

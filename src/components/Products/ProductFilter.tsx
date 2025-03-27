@@ -19,7 +19,6 @@ interface IFormInput {
   shipping: boolean
 }
 
-
 function ProductFilter() {
   const [searchParams, setSearchParams] = useSearchParams()
   const methods = useForm<IFormInput>()

@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
-import { Product } from "../../types/types";
 import ProductCard from "./ProductCard";
+import { Product } from "../../shared/interfaces/products.interface";
 
 function ProductGrid({products, list=false}: {products: Product[], list?: boolean}) {
   return (  
