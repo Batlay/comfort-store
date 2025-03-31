@@ -39,7 +39,7 @@ function OrdersPage() {
           </thead>
           <tbody>
             {orders && orders.data.map(order => 
-            <tr>
+            <tr key={order.id}>
               <td>{order.attributes.name}</td>
               <td>{order.attributes.address}</td>
               <td>{order.attributes.numItemsInCart}</td>

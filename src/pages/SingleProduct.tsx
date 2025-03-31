@@ -87,7 +87,10 @@ function SingleProductPage() {
               {colors.map(color => 
                 <button 
                   className={`btn btn-sm rounded-full w-[24px] h-[24px] mr-2 ${selectedColor === color && 'border-2 border-neutral p-0'} `}
-                  style={{backgroundColor: color}} onClick={() => setSelectedColor(color)} />
+                  style={{backgroundColor: color}} 
+                  onClick={() => setSelectedColor(color)} 
+                  key={color}
+                />
               )}
             </div>
           </div>

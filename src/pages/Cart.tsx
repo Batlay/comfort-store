@@ -7,7 +7,7 @@ import { MdDeleteOutline } from "react-icons/md";
 import { NavLink } from "react-router";
 
 function CartPage() {
-  const cart = useAppSelector((state) => state.cart.cart)
+  const cart = useAppSelector((state) => state.cart)
   const {isAuth} = useAppSelector((state) => state.auth)
 
   const dispatch = useAppDispatch()
@@ -49,7 +49,7 @@ function CartPage() {
             const {title, company, image, price, productColor} = product
 
             return (
-            <>
+            <div key={product.cartId}>
               <article className="flex flex-row">
                 <img src={image} className="h-32 w-32 rounded-lg object-cover"/>
                 <div className="ml-16 w-48">
@@ -84,7 +84,7 @@ function CartPage() {
                 </div>
               </article>
               <div className="divider"></div>
-            </>
+            </div>
             )}
           )}
         </div>

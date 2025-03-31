@@ -4,7 +4,7 @@ import ThemeSwitcher from "../ThemeSwitcher";
 import { useAppSelector } from "../../../features/hooks";
 
 function Navbar() {
-  const cartItems = useAppSelector((state) => state.cart.cart)
+  const cartItems = useAppSelector((state) => state.cart)
   const isAuth = useAppSelector((state) => state.auth.isAuth)
 
   const totalItems = cartItems.reduce((acc, product) => {

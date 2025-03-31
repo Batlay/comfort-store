@@ -11,32 +11,26 @@ export interface ICart {
     cartId: string,
 }
 
-interface CartState {
-  cart: ICart[]
-}
-
-const initialState: CartState = {
-  cart: [],
-}
+const initialState: ICart[] = []
 
 const cartSlice = createSlice({
   name: 'cart',
   initialState: initialState,
   reducers: {
-    addToCart: (state, action: PayloadAction<ICart>) => {
+    addToCart(state, action: PayloadAction<ICart>) {
       // увеличим количество продукта, если продукт с таким id уже есть в корзине
-      const productInCart = state.cart.find(product => product.cartId === action.payload.cartId)
+      const productInCart = state.find(product => product.cartId === action.payload.cartId)
       if (!productInCart) {
-        state.cart.push({...action.payload, amount: 1})
+        state.push({...action.payload, amount: 1})
       } else {
         productInCart.amount! += 1
       }
     },
-    removeFromCart: (state, action: PayloadAction<ICart>) => {
-      state.cart = state.cart.filter(product => product.cartId !== action.payload.cartId)
+    removeFromCart(state, action: PayloadAction<ICart>) {
+      return state.filter(product => product.cartId !== action.payload.cartId)
     },
-    decreaseAmount: (state, action: PayloadAction<ICart>) => {
-      const product = state.cart.find(product => product.cartId === action.payload.cartId)
+    decreaseAmount(state, action: PayloadAction<ICart>) {
+      const product = state.find(product => product.cartId === action.payload.cartId)
 
       if (!product) return
 
@@ -46,15 +40,15 @@ const cartSlice = createSlice({
         product.amount! -= 1
       }
     },
-    increaseAmount: (state, action: PayloadAction<ICart>) => {
-      const product = state.cart.find(product => product.cartId === action.payload.cartId)
+    increaseAmount(state, action: PayloadAction<ICart>) {
+      const product = state.find(product => product.cartId === action.payload.cartId)
 
       if (!product) return
 
       product.amount! += 1
     },
-    clearCart: (state) => {
-      state.cart = []
+    clearCart(_state) {
+      _state = []
     }
   }
 })

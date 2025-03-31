@@ -1,13 +1,9 @@
 import ProductGrid from "./ProductGrid";
 import SkeletonGrid from "../UI/Skeletongrid";
-import { useFetchProducts } from "../../services/api/api";
-import { VITE_API_ENDPOINT } from "../../shared/constants/constants";
+import { useFetchFeaturedProducts } from "../../services/api/api";
 
 function FeaturedProducts() {
-  const url = `${VITE_API_ENDPOINT}/products?featured=true`
-  const queryKey = 'featured_products'
-
-  const {data: productsData, isLoading, error} = useFetchProducts(url, queryKey)
+  const {data: productsData, isLoading, error} = useFetchFeaturedProducts()
 
   const products = productsData?.data
 

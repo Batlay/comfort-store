@@ -25,12 +25,12 @@ const authSlice = createSlice({
   name: 'auth',
   initialState: initialState,
   reducers: {
-    logout: (state) => {
+    logout(state) {
       state.isAuth = false 
       state.userToken = null
       state.userInfo = null
     },
-    authAfterRefresh: (state, action: PayloadAction<{userInfo: authState['userInfo'], userToken: authState['userToken']}>) => {
+    authAfterRefresh(state, action: PayloadAction<{userInfo: authState['userInfo'], userToken: authState['userToken']}>) {
       state.isAuth = true
       state.userInfo = action.payload.userInfo
       state.userToken = action.payload.userToken

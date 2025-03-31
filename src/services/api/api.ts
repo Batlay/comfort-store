@@ -5,29 +5,37 @@ import { IProductResponse, Product } from "../../shared/interfaces/products.inte
 import { IOrderResponse } from "../../shared/interfaces/orders.interface";
 import { VITE_API_ENDPOINT } from "../../shared/constants/constants";
 
-
-export const useFetchProducts = (apiURL: string, queryKey: string) => {
+export const useFetchProducts = () => {
   const location = useLocation()
   const searchParams = location.search
-
+  
   return useQuery({
-    queryKey: [queryKey, searchParams],
+    queryKey: ['products', searchParams],
     queryFn: async () => {
-      const response = await axios.get(`${apiURL}${searchParams}`)
-      return response.data as IProductResponse
+      const response = await axios.get<IProductResponse>(`${VITE_API_ENDPOINT}/products${searchParams}`)
+      return response.data
     }
   })
 }
 
-export const useFetchSingleProduct = (id: string) => {
-  return useQuery({
+export const useFetchFeaturedProducts = () => 
+  useQuery({
+    queryKey: ['featured_products'],
+    queryFn: async () => {
+      const response = await axios.get<IProductResponse>(`${VITE_API_ENDPOINT}/products?featured=true`)
+      return response.data
+    },
+  })
+
+export const useFetchSingleProduct = (id: string) => 
+  useQuery({
     queryKey: ['product', id],
     queryFn: async () => {
       const response = await axios.get(`${VITE_API_ENDPOINT}/products/${id}`)
       return response.data.data as Product
     }
   })
-}
+
 
 export const useFetchOrders = (token: string) => {
   const location = useLocation()

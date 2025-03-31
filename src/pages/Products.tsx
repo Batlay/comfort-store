@@ -6,15 +6,11 @@ import ProductGrid from "../components/Products/ProductGrid";
 import SkeletonGrid from "../components/UI/Skeletongrid";
 import ProductFilter from "../components/Products/ProductFilter";
 import { useFetchProducts } from "../services/api/api";
-import { VITE_API_ENDPOINT } from "../shared/constants/constants";
 
 function ProductsPage() {
   const [list, setList] = useState(false)
   
-  const url = `${VITE_API_ENDPOINT}/products`
-  const queryKey = 'products'
-
-  const {data: productsData, isPending, error} = useFetchProducts(url, queryKey)
+  const {data: productsData, isPending, error} = useFetchProducts()
   
   const products = productsData?.data
   const total = productsData?.meta.pagination.total || 0

@@ -34,9 +34,10 @@ function CheckoutPage() {
         }
       )
       return data
-    }})
+    }
+  })
 
-  const cart = useAppSelector(state => state.cart.cart)
+  const cart = useAppSelector(state => state.cart)
   const totalPrice = cart.reduce((acc, product) => {
     return acc += Number(product.price) * product.amount!
   }, 0)
