@@ -47,8 +47,8 @@ const cartSlice = createSlice({
 
       product.amount! += 1
     },
-    clearCart(_state) {
-      _state = []
+    clearCart() {
+      return []
     }
   }
 })

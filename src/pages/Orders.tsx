@@ -1,11 +1,16 @@
 import Loading from "../components/UI/Loading";
 import Pagination from "../components/UI/Pagination";
-import { useAppSelector } from "../features/hooks";
+import { useAppDispatch, useAppSelector } from "../features/hooks";
 import { useFetchOrders } from "../services/api/api";
 import moment from 'moment'
+import { toast} from "react-toastify";
+import { logoutUser } from "../services/helpers/auth";
+import ErrorPage from "../components/ErrorPage";
 
 function OrdersPage() {
   const {userToken} = useAppSelector(state => state.auth)
+  const dispatch = useAppDispatch()
+
   const {data: orders, isPending, error} = useFetchOrders(userToken!)
 
   if (isPending) {
@@ -13,7 +18,12 @@ function OrdersPage() {
   }
 
   if (error) {
-    return <p>{error.message}</p>
+    if (error.status === 403 || error.status === 401) {
+      toast.error('Ваша сессия истекла')
+      logoutUser(dispatch)
+    } else {
+      return <ErrorPage error={error} />
+    }
   }
 
   const total = orders?.meta.pagination.total || 0

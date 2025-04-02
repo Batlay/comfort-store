@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { authResponse, loginUser, registerUser } from "./authActions";
+import { authResponse, loginUser, registerUser } from "./api";
 
 export interface authState {
   isAuth: boolean,

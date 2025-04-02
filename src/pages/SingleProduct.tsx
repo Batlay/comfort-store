@@ -5,7 +5,8 @@ import { formatPriceInUSD } from "../utils/formatting";
 import { useFetchSingleProduct } from "../services/api/api";
 import Loading from "../components/UI/Loading";
 import { useState } from "react";
-import { Slide, ToastContainer, toast } from 'react-toastify';
+import { Slide, toast } from 'react-toastify';
+import ErrorPage from "../components/ErrorPage";
 
 function SingleProductPage() {
   const { id } = useParams()
@@ -14,10 +15,10 @@ function SingleProductPage() {
   
   const dispatch = useAppDispatch()
 
-  const {data: product, isPending, error} = useFetchSingleProduct(id!)
+  const {data: product, isPending, error, refetch} = useFetchSingleProduct(id!)
 
   if (error) {
-    return <p>Error</p>
+    return <ErrorPage error={error} refetch={refetch}/>
   }
   
   if (isPending) {
@@ -103,19 +104,6 @@ function SingleProductPage() {
           </button>
         </div>
       </div>
-      <ToastContainer
-        position="bottom-center"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover={false}
-        theme="dark"
-        transition={Slide}
-        />
     </section>
   );
 }

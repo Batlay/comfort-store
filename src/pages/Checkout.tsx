@@ -4,11 +4,13 @@ import { formatPriceInUSD } from "../utils/formatting";
 import Input from "../components/UI/Inputs/Input";
 import { IOrder } from "../shared/interfaces/orders.interface";
 import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import Loading from "../components/UI/Loading";
-import { Slide, toast, ToastContainer } from "react-toastify";
+import { Slide, toast } from "react-toastify";
 import { clearCart } from "../features/cart/cartSlice";
 import { VITE_API_ENDPOINT } from "../shared/constants/constants";
+import { logoutUser } from "../services/helpers/auth";
+import { useNavigate } from "react-router";
 
 interface ICheckoutForm {
   name: string,
@@ -20,8 +22,9 @@ function CheckoutPage() {
   const {handleSubmit} = methods
   const {userToken} = useAppSelector(state => state.auth)
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
 
-  const {mutate, isPending, error} = useMutation({
+  const {mutate, isPending, error} = useMutation<any, AxiosError, IOrder, unknown>({
     mutationFn: async (order: IOrder) => {
       const {data} = await axios.post<IOrder>(
         `${VITE_API_ENDPOINT}/orders`,
@@ -29,14 +32,14 @@ function CheckoutPage() {
         {
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${userToken}`
+            'Authorization': `${userToken}`
           }
         }
       )
       return data
     }
   })
-
+    
   const cart = useAppSelector(state => state.cart)
   const totalPrice = cart.reduce((acc, product) => {
     return acc += Number(product.price) * product.amount!
@@ -56,9 +59,6 @@ function CheckoutPage() {
       numItemsInCart: cart.length,
       orderTotal: formatPriceInUSD(totalOrder),
     }
-    console.log(order);
-    mutate(order)
-    dispatch(clearCart())
     toast.success('Order has been created!', {
       position: "bottom-right",
       autoClose: 5000,
@@ -70,6 +70,14 @@ function CheckoutPage() {
       theme: "light",
       transition: Slide,
     });
+    mutate(order)
+    dispatch(clearCart())
+    navigate('/orders')
+  }
+
+  if (error && (error.status === 403 || error.status === 401)) {
+    toast.error('Ваша сессия истекла')
+    logoutUser(dispatch) 
   }
 
   if (isPending) {
@@ -123,19 +131,6 @@ function CheckoutPage() {
         </div>
       </div>}
       {error && <p className="text-center">{error.message}</p>}
-      <ToastContainer
-        position="bottom-center"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover={false}
-        theme="dark"
-        transition={Slide}
-        />
     </section>
   );
 }

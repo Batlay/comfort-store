@@ -1,7 +1,6 @@
 import { NavLink, useNavigate } from "react-router";
 import { useAppDispatch, useAppSelector } from "../../../features/hooks";
-import { logout } from "../../../features/auth/authSlice";
-import { clearCart } from "../../../features/cart/cartSlice";
+import { logoutUser } from "../../../services/helpers/auth";
 
 function Header() {
   const {isAuth, userInfo} = useAppSelector(state => state.auth)
@@ -9,12 +8,7 @@ function Header() {
   const navigate = useNavigate()
 
   const exit = () => {
-    dispatch(clearCart())
-
-    localStorage.removeItem('userToken')
-    localStorage.removeItem('userInfo')
-
-    dispatch(logout())
+    logoutUser(dispatch)
     navigate('/')
   }
 

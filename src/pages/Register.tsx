@@ -3,7 +3,7 @@ import Input from "../components/UI/Inputs/Input"
 import { NavLink, useNavigate } from "react-router"
 import { useAppDispatch, useAppSelector } from "../features/hooks"
 import { useEffect } from "react"
-import { registerUser } from "../features/auth/authActions"
+import { registerUser } from "../features/auth/api"
 import Loading from "../components/UI/Loading"
 import { IRegisterUser } from "../shared/interfaces/users.interface"
 

@@ -6,18 +6,19 @@ import ProductGrid from "../components/Products/ProductGrid";
 import SkeletonGrid from "../components/UI/Skeletongrid";
 import ProductFilter from "../components/Products/ProductFilter";
 import { useFetchProducts } from "../services/api/api";
+import ErrorPage from "../components/ErrorPage";
 
 function ProductsPage() {
   const [list, setList] = useState(false)
   
-  const {data: productsData, isPending, error} = useFetchProducts()
+  const {data: productsData, isPending, error, refetch} = useFetchProducts()
   
   const products = productsData?.data
   const total = productsData?.meta.pagination.total || 0
   const pageSize = productsData?.meta.pagination.pageSize || 10
 
   if (error) {
-    <p>{error.message}</p>
+    return <ErrorPage error={error} refetch={refetch}/>
   }
 
   return ( 
