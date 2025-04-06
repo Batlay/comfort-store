@@ -51,12 +51,12 @@ function ProductFilter() {
     <div className="w-full">
       <div className=" bg-base-300 px-8 py-4 rounded-xl">
         <FormProvider {...methods}>
-          <form className="grid grid-cols-4 gap-x-4 gap-y-8 items-center"  onSubmit={handleSubmit(onSubmit)}>
-            <Input label="search product"  {...register('search')}/>
+          <form className="grid grid-cols-1 md:grid-cols-4 gap-2 sm:gap-x-4 sm:gap-y-8 items-center justify-items-between"  onSubmit={handleSubmit(onSubmit)}>
+            <Input label="search product"  {...register('search')} className="w-full"/>
 
-            <SelectInput label='select category'  name='category' options={categoryOptions}/>
-            <SelectInput label='select company'  name='company' options={companyOptions}/>
-            <SelectInput label='sort by'  name='order' options={sortOptions}/>
+            <SelectInput label='select category'  name='category' options={categoryOptions} className="w-full"/>
+            <SelectInput label='select company'  name='company' options={companyOptions} className="w-full"/>
+            <SelectInput label='sort by'  name='order' options={sortOptions} className="w-full"/>
 
             <div>
               <RangeInput label="select price"  name='price'/>
@@ -68,7 +68,7 @@ function ProductFilter() {
 
             <CheckboxInput label="free shipping" name='shipping'/>
 
-            <button className="uppercase btn btn-primary rounded-xl btn-sm" type="submit">select</button>
+            <button className="uppercase btn btn-primary rounded-xl btn-sm mt-5 sm:mt-0" type="submit">select</button>
             <button className="uppercase font-medium btn btn-secondary rounded-xl btn-sm"  onClick={() => reset({
               search: '',
               category: 'all',

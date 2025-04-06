@@ -29,7 +29,7 @@ function Pagination({totalItems, itemsPerPage}: PaginationProps) {
 
   return ( 
     <div className="join mt-16">
-      <button className="join-item btn btn-sm" onClick={() => {
+      <button id="prev" aria-label="prev" className="join-item btn btn-sm" onClick={() => {
         handlePageChange(currentPage - 1)
       }}
       >
@@ -107,7 +107,7 @@ function Pagination({totalItems, itemsPerPage}: PaginationProps) {
         </button>
       </div>
       }
-      <button className="join-item btn btn-sm" onClick={() => {
+      <button id="next" aria-label="next" className="join-item btn btn-sm" onClick={() => {
         handlePageChange(currentPage + 1)
       }}
       >

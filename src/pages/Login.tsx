@@ -36,8 +36,8 @@ function LoginPage() {
   } 
   
   return ( 
-      <div className="w-120 bg-base-200 py-8 px-15 shadow-lg mx-auto my-20">
-        <h4 className="capitalize text-center text-3xl font-medium mb-10">login</h4>
+      <div className="w-80 sm:w-120 bg-base-200 py-4 px-4 sm:py-8 sm:px-15 shadow-lg mx-auto my-20">
+        <h4 className="capitalize text-center text-2xl sm:text-3xl font-medium mb-5 sm:mb-10">login</h4>
         <FormProvider {...methods}>
           <form className="flex flex-col gap-y-4 w-full"  onSubmit={handleSubmit(onSubmit)}>
             <Input 
@@ -64,7 +64,9 @@ function LoginPage() {
               guest user
             </button>
             <p className="text-center">Not a member yet? <NavLink to='/register' className='text-primary'>Register</NavLink></p>
-            {error && <p className="text-center">{error}</p>}
+            {error === 400 && <p className="text-center">Invalid email or password</p>}
+            {error === 404 && <p className="text-center">User not found</p>}
+            {error && error !== 404 && error !== 400 && <p className="text-center">Oops, something went wrong...</p>}
           </form>
         </FormProvider>
       </div>

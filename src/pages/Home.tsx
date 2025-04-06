@@ -3,7 +3,7 @@ import Hero from "../components/Hero"
 
 function HomePage() {
   return (
-    <section className="py-20">
+    <section className="py-10 sm:py-20">
       <Hero />
       <FeaturedProducts />
     </section>

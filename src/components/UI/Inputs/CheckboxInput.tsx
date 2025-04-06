@@ -12,7 +12,11 @@ function CheckboxInput({label, name}: CheckboxInputProps) {
   return ( 
     <div className={`flex flex-col gap-y-3 items-center`}>
       <label htmlFor={name} className="capitalize text-sm">{label}</label>
-      <input {...register(name)} type='checkbox' className={`checkbox checkbox-sm checkbox-primary`} />
+      <input 
+        id={name}
+        {...register(name)} 
+        type='checkbox' 
+        className={`checkbox checkbox-sm checkbox-primary`} />
     </div>
   );
 }

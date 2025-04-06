@@ -7,8 +7,6 @@ import { registerUser } from "../features/auth/api"
 import Loading from "../components/UI/Loading"
 import { IRegisterUser } from "../shared/interfaces/users.interface"
 
-
-
 function RegisterPage() {
   let {error, loading, isAuth} = useAppSelector(state => state.auth)
   const dispatch = useAppDispatch()
@@ -32,8 +30,8 @@ function RegisterPage() {
   } 
   
   return ( 
-    <div className="w-120 bg-base-200 py-8 px-15 shadow-lg mx-auto my-20">
-      <h4 className="text-center text-3xl font-medium mb-15">Create account</h4>
+    <div className="w-80 sm:w-120 bg-base-200 py-4 px-4 sm:py-8 sm:px-15 shadow-lg mx-auto my-20">
+      <h4 className="text-center text-xl sm:text-3xl font-medium mb-5 sm:mb-15">Create account</h4>
       <FormProvider {...methods}>
         <form className="flex flex-col gap-y-4 w-full"  onSubmit={handleSubmit(onSubmit)}>
           <Input 
@@ -64,7 +62,7 @@ function RegisterPage() {
           <p className="text-center">Already a member? <NavLink to='/login' className='text-primary'>Login</NavLink></p>
         </form>
       </FormProvider>
-      {error && <p>Oops... something went wrong</p>}
+      {error && <p className="text-center">{error}</p>}
     </div>
   );
 }

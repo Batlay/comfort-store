@@ -13,8 +13,8 @@ function Header() {
   }
 
   return (
-    <header className="bg-blue-950 py-2 text-neutral-content">
-      <div className="w-[1080px] mx-auto flex justify-center sm:justify-end">
+    <header className="bg-blue-900 py-2 text-neutral-content">
+      <div className="w-[320px] sm:w-[500px] md:w-[680px] lg:w-[920px] xl:w-[1080px] mx-auto flex justify-center sm:justify-end">
         <div className="flex gap-x-6 justify-center items-center">
         {isAuth
         ? 

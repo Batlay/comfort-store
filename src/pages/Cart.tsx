@@ -37,29 +37,29 @@ function CartPage() {
   return ( 
     <section className="py-20">
       {cart.length === 0 
-      ? <h2 className="text-xl">Your cart is currently empty</h2> 
-      : <h2 className="capitalize font-medium text-3xl tracking-wider">shopping cart</h2>}
+      ? <h2 className="text-xl text-center md:text-left">Your cart is currently empty</h2> 
+      : <h2 className="capitalize font-medium text-3xl tracking-wider text-center md:text-left">shopping cart</h2>}
 
       <div className="divider"></div>
 
       {cart.length > 0 && 
       <div className="grid grid-cols-12 pt-4 gap-8">
-        <div className="lg:col-span-8">
+        <div className="col-span-12 md:col-span-8">
           {cart.map(product => {
             const {title, company, image, price, productColor} = product
 
             return (
             <div key={product.cartId}>
-              <article className="flex flex-row">
-                <img src={image} className="h-32 w-32 rounded-lg object-cover"/>
-                <div className="ml-16 w-48">
+              <article className="grid grid-cols-12 md:flex md:flex-row">
+                <img src={image} className="col-span-4 sm:col-span-3 h-32 w-32 rounded-lg object-cover"/>
+                <div className="col-span-8 sm:col-span-9 ml-10 md:ml-4 md:w-40 lg:ml-16 lg:w-48">
                   <h3 className="capitalize font-medium">{title}</h3>
                   <h4 className="text-sm text-neutral-content capitalize mt-2">{company}</h4>
                   <p className="capitalize text-sm mt-4 flex items-center gap-x-2 ">color: 
                     <span className="badge badge-xs rounded-full" style={{backgroundColor: productColor}}></span>
                   </p>
                 </div>
-                <div className="ml-12 bg-base-300 rounded-lg flex flex-row justify-between items-center h-[30px] gap-3">
+                <div className="col-span-4 sm:col-span-3 mt-5 md:mt-0 md:ml-[0px] lg:ml-12 bg-base-300 rounded-lg flex flex-row justify-between items-center h-[30px] gap-3">
                   <button 
                     className={`cursor-pointer text-xl font-medium text-center p-2 ${product.amount === 1 ?'text-gray-300' : 'text-primary'}`} 
                     onClick={() => decreaseAmountOfProduct(product)}>
@@ -73,13 +73,13 @@ function CartPage() {
                     <FaPlus size={14}/>
                   </button>
                 </div>
-                <div className='sm: ml-auto flex items-end flex-col justify-between'>
-                  <p className="font-medium sm: ml-auto">{formatPriceInUSD(+price)}</p>
+                <div className='col-span-8 sm:col-span-9 md:ml-5 lg:ml-auto flex items-end flex-col justify-between'>
+                  <p className="font-medium sm:ml-auto">{formatPriceInUSD(+price)}</p>
                   <button 
                     className="cursor-pointer p-2" 
                     onClick={() => removeProductFromCart(product)}
                   >
-                    <MdDeleteOutline className='sm: ml-auto' size={20}/>
+                    <MdDeleteOutline className='sm:ml-auto' size={20}/>
                   </button>
                 </div>
               </article>
@@ -88,7 +88,7 @@ function CartPage() {
             )}
           )}
         </div>
-        <div className="lg:col-span-4">
+        <div className="col-span-12 md:col-span-4">
           <div className="p-6 flex flex-col text-sm gap-4 bg-base-200 rounded-lg">
             <p className="flex justify-between border-b border-base-300 pb-2">
               <span>Subtotal</span>  

@@ -22,13 +22,14 @@ function ProductsPage() {
   }
 
   return ( 
-    <section className="py-20 pl-[calc(100vw - 100%)]">
+    <section className="py-10 sm:py-20 pl-[calc(100vw - 100%)]">
       <ProductFilter/>
       <div className="mt-8">
           <div className="flex justify-between items-center mt-8">
             <p className="font-medium">{total} products</p>
             <div className="flex gap-2">
               <button 
+                id="grid" aria-label="grid"
                 onClick={() => setList(false)} 
                 className={`border rounded-full p-2 transition-all duration-500 ease-in-out cursor-pointer 
                   ${list ? 'hover:text-base-400 border-transparent' : 'border-base-500 bg-base-100'}`}
@@ -36,6 +37,7 @@ function ProductsPage() {
                 <HiOutlineSquares2X2 size={20} />
               </button>
               <button 
+                id="list" aria-label="list"
                 onClick={() => setList(true)} 
                 className={`border rounded-full p-2 transition-all duration-500 ease-in-out cursor-pointer
                   ${list ? 'border-base-500 bg-base-100' : 'hover:text-base-400 border-transparent bg-transparent'}`}

@@ -62,7 +62,7 @@ function SingleProductPage() {
 
   return ( 
     <section className="mt-20">
-      <div className="flex justify-between">
+      <div className="flex justify-between items-center">
         <div className="breadcrumbs text-md">
           <ul>
             <li><NavLink to='/'>Home</NavLink></li>
@@ -71,14 +71,14 @@ function SingleProductPage() {
         </div>
         <NavLink to='/products' className='underline underline-offset-4'>Back to products</NavLink>
       </div>
-      <div className="mt-6 grid grid-cols-2 gap-x-16">
+      <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-x-16">
         <img 
           src={product?.attributes.image} 
           alt='product image'
           className="w-96 h-96 object-cover rounded-lg lg:w-full"
         />
         <div>
-          <h2 className="font-bold text-3xl capitalize">{title}</h2>
+          <h2 className="font-bold text-3xl capitalize mt-5 md:mt-0">{title}</h2>
           <h4 className="font-bold text-xl text-neutral-content capitalize mt-2">{company}</h4>
           <p className="text-xl mt-3">{formatPriceInUSD(+price)}</p>
           <p className="leading-8 mt-6">{description}</p>
@@ -97,7 +97,7 @@ function SingleProductPage() {
           </div>
           <p className="mt-2">{message}</p>
           <button 
-            className="btn btn-primary mt-10 capitalize"
+            className="btn btn-primary mt-10 capitalize w-full mb-10 mx-auto md:w-auto md:mb-0 md:mx-0 block "
             onClick={addProductToCart}
           >
             add to cart

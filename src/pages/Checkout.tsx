@@ -3,14 +3,10 @@ import { useAppDispatch, useAppSelector } from "../features/hooks";
 import { formatPriceInUSD } from "../utils/formatting";
 import Input from "../components/UI/Inputs/Input";
 import { IOrder } from "../shared/interfaces/orders.interface";
-import { useMutation } from "@tanstack/react-query";
-import axios, { AxiosError } from "axios";
 import Loading from "../components/UI/Loading";
-import { Slide, toast } from "react-toastify";
-import { clearCart } from "../features/cart/cartSlice";
-import { VITE_API_ENDPOINT } from "../shared/constants/constants";
 import { logoutUser } from "../services/helpers/auth";
-import { useNavigate } from "react-router";
+import { createOrder } from "../services/api/api";
+import { toast } from "react-toastify";
 
 interface ICheckoutForm {
   name: string,
@@ -19,26 +15,11 @@ interface ICheckoutForm {
 
 function CheckoutPage() {
   const methods = useForm<ICheckoutForm>()
-  const {handleSubmit} = methods
+  const {handleSubmit, formState: {errors}} = methods
   const {userToken} = useAppSelector(state => state.auth)
   const dispatch = useAppDispatch()
-  const navigate = useNavigate()
 
-  const {mutate, isPending, error} = useMutation<any, AxiosError, IOrder, unknown>({
-    mutationFn: async (order: IOrder) => {
-      const {data} = await axios.post<IOrder>(
-        `${VITE_API_ENDPOINT}/orders`,
-        {data: order},
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `${userToken}`
-          }
-        }
-      )
-      return data
-    }
-  })
+  const {mutate, isPending, error} = createOrder(userToken!)
     
   const cart = useAppSelector(state => state.cart)
   const totalPrice = cart.reduce((acc, product) => {
@@ -59,20 +40,7 @@ function CheckoutPage() {
       numItemsInCart: cart.length,
       orderTotal: formatPriceInUSD(totalOrder),
     }
-    toast.success('Order has been created!', {
-      position: "bottom-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-      transition: Slide,
-    });
     mutate(order)
-    dispatch(clearCart())
-    navigate('/orders')
   }
 
   if (error && (error.status === 403 || error.status === 401)) {
@@ -83,6 +51,7 @@ function CheckoutPage() {
   if (isPending) {
     return <Loading />
   } 
+  console.log(error);
 
   return ( 
     <section className="py-20">
@@ -94,12 +63,24 @@ function CheckoutPage() {
       
       {cart.length > 0 && 
       <div className="grid grid-cols-12 pt-4 gap-8">
-        <div className="lg:col-span-6">
+        <div className="col-span-12 md:col-span-6">
           <h4 className="font-medium text-xl">Shipping information</h4>
           <FormProvider {...methods}>
             <form className="mt-5 flex flex-col gap-y-5" onSubmit={handleSubmit(submitOrder)}>
-              <Input label="first name" name="name" className="w-full"/>
-              <Input label="address" name="address" className="w-full"/>
+              <Input 
+                label="first name" 
+                name="name" 
+                className="w-full" 
+                options={{ minLength: {value: 3, message: 'First name must be at least 2 characters '}, required: 'First name is required'}}
+              />
+              {errors.name && <p className="text-red-500 font-medium">{errors.name.message}</p>}
+              <Input 
+                label="address" 
+                name="address" 
+                className="w-full" 
+                options={{ minLength: {value: 3, message: 'Adress must be at least 6 characters '}, required: 'Address is required'}} 
+              />
+              {errors.address && <p className="text-red-500 font-medium">{errors.address.message}</p>}
               <button 
                 className="btn btn-primary mt-5 uppercase w-full"
                 type="submit"
@@ -109,7 +90,7 @@ function CheckoutPage() {
             </form>
           </FormProvider>
         </div>
-        <div className="lg:col-span-6">
+        <div className="col-span-12 md:col-span-6">
           <div className="p-6 flex flex-col text-sm gap-4 bg-base-200 rounded-lg">
             <p className="flex justify-between border-b border-base-300 pb-2">
               <span>Subtotal</span>  
@@ -130,7 +111,8 @@ function CheckoutPage() {
           </div>
         </div>
       </div>}
-      {error && <p className="text-center">{error.message}</p>}
+      {error && error?.status === 400 && <p className="text-center mt-5">Please provide first name and address</p>}
+      {error && error?.status !== 400 && <p className="text-center mt-5">Oops, something went wrong</p>}
     </section>
   );
 }

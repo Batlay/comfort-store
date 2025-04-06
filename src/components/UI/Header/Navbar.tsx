@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import ThemeSwitcher from "../ThemeSwitcher";
 import { useAppSelector } from "../../../features/hooks";
 
+
 function Navbar() {
   const cartItems = useAppSelector((state) => state.cart)
   const isAuth = useAppSelector((state) => state.auth.isAuth)
@@ -19,7 +20,7 @@ function Navbar() {
   return ( 
     <>
       <nav className="w-full bg-base-300 h-[68px] flex justify-center">
-        <section className="w-[1080px] flex justify-between items-center">
+        <section className="w-[320px] sm:w-[500px] md:w-[680px] lg:w-[920px] xl:w-[1080px] flex justify-between items-center">
           <div className="dropdown lg:hidden">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"> 
@@ -29,19 +30,44 @@ function Navbar() {
             <ul
               tabIndex={0}
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-              <li><a>Item 1</a></li>
-              <li>
-                <a>Parent</a>
-                <ul className="p-2">
-                  <li><a>Submenu 1</a></li>
-                  <li><a>Submenu 2</a></li>
-                </ul>
+              <li>   
+                <NavLink to='/' className={isActiveNavLink}>
+                  Home
+                </NavLink>
               </li>
-              <li><a>Item 3</a></li>
+              <li>
+                <NavLink to='/about' className={isActiveNavLink}>
+                  About
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to='/products' className={isActiveNavLink}>
+                  Products
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to='/cart' className={isActiveNavLink}>
+                  Cart
+                </NavLink>
+              </li>
+               {isAuth &&
+                <>
+                  <li>
+                    <NavLink to='/checkout' className={isActiveNavLink}>
+                      Checkout
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink to='/orders' className={isActiveNavLink}>
+                      Orders
+                    </NavLink>
+                  </li>
+                </>
+              }
             </ul>
           </div>
           <NavLink to='/' className="hidden lg:block">
-            <button className="text-3xl btn btn-primary text-white ">C</button>
+            <img src="/android-chrome-512x512.png" className="w-[40px] h-[40px]"/> 
           </NavLink>
           <div className="hidden flex gap-2 lg:flex items-center">
             <NavLink to='/' className={isActiveNavLink}>

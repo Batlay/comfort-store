@@ -11,7 +11,7 @@ function OrdersPage() {
   const {userToken} = useAppSelector(state => state.auth)
   const dispatch = useAppDispatch()
 
-  const {data: orders, isPending, error} = useFetchOrders(userToken!)
+  const {data: orders, isPending, error, refetch} = useFetchOrders(userToken!)
 
   if (isPending) {
     return <Loading />
@@ -22,7 +22,7 @@ function OrdersPage() {
       toast.error('Ваша сессия истекла')
       logoutUser(dispatch)
     } else {
-      return <ErrorPage error={error} />
+      return <ErrorPage error={error} refetch={refetch}/>
     }
   }
 

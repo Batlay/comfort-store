@@ -7,11 +7,10 @@ function FeaturedProducts() {
   const {data: productsData, isLoading, error, refetch} = useFetchFeaturedProducts()
 
   const products = productsData?.data
-  console.log(error);
 
   return ( 
     <section className="mt-30">
-      <h2 className="text-3xl font-medium">Featured products</h2>
+      <h2 className="text-3xl font-medium text-center lg:text-left">Featured products</h2>
       <div className="divider "></div>
       {error && <ErrorPage error={error} refetch={refetch}/>}
       {isLoading && <SkeletonGrid />}

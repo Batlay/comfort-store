@@ -20,6 +20,7 @@ function RangeInput({label, name}: InputProps) {
         <span>{formatPriceInUSD(selectedPrice)}</span>
       </label>
       <input 
+        id={name}
         {...register(name)}
         type='range' 
         min={0}

@@ -6,7 +6,7 @@ function ProductCard({product, list}: {product: Product, list: boolean}) {
   const formattedPrice = formatPriceInUSD(+price)
 
   return ( 
-    <div className={`bg-base-100 shadow-sm rounded-lg ${list ? 'w-full h-[192px] flex flex-col flex-wrap sm:flex-row p-8' : 'w-[356px] h-[332px]'}`}>
+    <div className={`bg-base-100 shadow-sm rounded-lg ${list ? 'w-full h-[192px] flex flex-col flex-wrap sm:flex-row p-8' : 'w-[250px] lg:w-[356px] h-[300px] md:h-[332px]'}`}>
       <div className={list ? '' : 'w-full px-4 pt-4 h-[208px]'}>
         <img
           src={product.attributes.image}
@@ -14,6 +14,7 @@ function ProductCard({product, list}: {product: Product, list: boolean}) {
           className={`object-cover ${list ? 'h-24 w-24 rounded-xl sm:h-32 sm:w-32' : 'rounded-xl w-full h-full'}`} 
           loading="lazy"
         />
+        
       </div>
       {list &&
       <>

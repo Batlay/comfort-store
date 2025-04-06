@@ -15,7 +15,7 @@ function ThemeSwitcher() {
 
   return ( 
     <div>
-      <button onClick={toggleTheme} className="cursor-pointer transition-all duration-1000 ease-in-out">
+      <button id="theme" aria-label="theme" onClick={toggleTheme} className="cursor-pointer transition-all duration-1000 ease-in-out">
         {theme === 'light' 
           ? <IoMoonSharp/>
           : <FiSun />}
