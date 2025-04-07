@@ -2,96 +2,97 @@ import { BsCart2 } from "react-icons/bs";
 import { NavLink } from "react-router-dom";
 import ThemeSwitcher from "../ThemeSwitcher";
 import { useAppSelector } from "../../../features/hooks";
+import { useEffect, useRef, useState } from "react";
+import { MdOutlineMenuOpen } from "react-icons/md";
 
+function NavList() {
+  const isAuth = useAppSelector((state) => state.auth.isAuth)
+  
+  const isActiveNavLink = ({isActive}: {isActive: boolean}) => {
+    return `px-4 py-2 rounded-lg text-sm transition-all duration-300 ease-in-out 
+      ${isActive 
+        ? ' bg-slate-950 text-stone-50 hover:bg-slate-800' 
+        : 'hover:bg-slate-200 hover:text-stone-950'}`
+  }
+
+  return (
+    <>
+      <NavLink to='/' className={isActiveNavLink}>
+        Home
+      </NavLink>
+      <NavLink to='/about' className={isActiveNavLink}>
+        About
+      </NavLink>
+      <NavLink to='/products' className={isActiveNavLink}>
+        Products
+      </NavLink>
+      <NavLink to='/cart' className={isActiveNavLink}>
+        Cart
+      </NavLink>
+      {isAuth &&
+      <>
+        <NavLink to='/checkout' className={isActiveNavLink}>
+          Checkout
+        </NavLink>
+        <NavLink to='/orders' className={isActiveNavLink}>
+          Orders
+        </NavLink>
+      </>
+      }
+    </>
+  )
+}
 
 function Navbar() {
   const cartItems = useAppSelector((state) => state.cart)
-  const isAuth = useAppSelector((state) => state.auth.isAuth)
+  const [isShowed, setIsShowed] = useState(false)
 
   const totalItems = cartItems.reduce((acc, product) => {
     return acc += product.amount!
   }, 0)
 
-  const isActiveNavLink = ({isActive}: {isActive: boolean}) => {
-    return `px-4 py-2 rounded-lg text-sm transition-all duration-300 ease-in-out 
-      ${isActive ? ' bg-slate-950 text-stone-50 hover:bg-slate-800' : 'hover:bg-slate-200 hover:text-stone-950'}`
+  function hideDroplist() {
+    setIsShowed(false)
   }
+
+  const ref = useRef<any>(null);
+
+  const handleClickOutside = (event: any) => {
+    if (ref.current && !ref.current.contains(event.target) && event.target.localName !== 'button') {
+      setIsShowed(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("click", handleClickOutside);
+
+    return () => {
+      document.removeEventListener(
+        "click",
+        handleClickOutside
+      );
+    };
+  });
 
   return ( 
     <>
       <nav className="w-full bg-base-300 h-[68px] flex justify-center">
-        <section className="w-[320px] sm:w-[500px] md:w-[680px] lg:w-[920px] xl:w-[1080px] flex justify-between items-center">
-          <div className="dropdown lg:hidden">
-            <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"> 
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /> 
-              </svg>
+        <section className="w-[320px] sm:w-[500px] md:w-[680px] lg:w-[920px] xl:w-[1080px] flex justify-between">
+          <div className="lg:hidden self-center">
+            <button className="btn btn-ghost lg:hidden" onClick={() => setIsShowed(!isShowed)}>
+              <MdOutlineMenuOpen className="pointer-events-none" size={24}/>
+            </button>
+            <div className={`bg-base-100 p-4 absolute z-100 w-[200px] transition-all border-1 rounded-md duration-100 ease-in-out ${isShowed ? '' : 'hidden'}`} ref={ref}>
+              <ul className="flex flex-col z-10" onClick={hideDroplist}>
+                <NavList />
+              </ul>
             </div>
-            <ul
-              tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-              <li>   
-                <NavLink to='/' className={isActiveNavLink}>
-                  Home
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to='/about' className={isActiveNavLink}>
-                  About
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to='/products' className={isActiveNavLink}>
-                  Products
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to='/cart' className={isActiveNavLink}>
-                  Cart
-                </NavLink>
-              </li>
-               {isAuth &&
-                <>
-                  <li>
-                    <NavLink to='/checkout' className={isActiveNavLink}>
-                      Checkout
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink to='/orders' className={isActiveNavLink}>
-                      Orders
-                    </NavLink>
-                  </li>
-                </>
-              }
-            </ul>
           </div>
-          <NavLink to='/' className="hidden lg:block">
+          <NavLink to='/' className="hidden lg:block self-center">
             <img src="/android-chrome-512x512.png" className="w-[40px] h-[40px]"/> 
           </NavLink>
           <div className="hidden flex gap-2 lg:flex items-center">
-            <NavLink to='/' className={isActiveNavLink}>
-              Home
-            </NavLink>
-            <NavLink to='/about' className={isActiveNavLink}>
-              About
-            </NavLink>
-            <NavLink to='/products' className={isActiveNavLink}>
-              Products
-            </NavLink>
-            <NavLink to='/cart' className={isActiveNavLink}>
-              Cart
-            </NavLink>
-            {isAuth &&
-            <>
-              <NavLink to='/checkout' className={isActiveNavLink}>
-                Checkout
-              </NavLink>
-              <NavLink to='/orders' className={isActiveNavLink}>
-                Orders
-              </NavLink>
-            </>
-            }
+            <NavList />
           </div>
           <div className="flex justify-between gap-5 items-center">
             <ThemeSwitcher />

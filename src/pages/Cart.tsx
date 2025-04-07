@@ -44,7 +44,7 @@ function CartPage() {
 
       {cart.length > 0 && 
       <div className="grid grid-cols-12 pt-4 gap-8">
-        <div className="col-span-12 md:col-span-8">
+        <div className="col-span-10 sm:col-span-12 md:col-span-8">
           {cart.map(product => {
             const {title, company, image, price, productColor} = product
 
@@ -88,7 +88,7 @@ function CartPage() {
             )}
           )}
         </div>
-        <div className="col-span-12 md:col-span-4">
+        <div className="col-span-10 sm:col-span-12 md:col-span-4">
           <div className="p-6 flex flex-col text-sm gap-4 bg-base-200 rounded-lg">
             <p className="flex justify-between border-b border-base-300 pb-2">
               <span>Subtotal</span>  
