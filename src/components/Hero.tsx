@@ -21,10 +21,12 @@ function Hero() {
     <section className="flex flex-col lg:flex-row justify-between items-center gap-10">
       <div className="basis-1/2 py-10 text-center lg:text-left">
         <h1 className="text-3xl sm:text-6xl font-medium">We are changing the way people shop</h1>
-        <p className="text-lg mt-8">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit veniam dolor deleniti possimus odio obcaecati saepe delectus recusandae.</p>
-        <button className="mt-8 btn btn-primary">
-          <NavLink to={'/products'}>Our products</NavLink>
-        </button>
+        <p className="text-lg mt-8">
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit veniam dolor deleniti possimus odio obcaecati saepe delectus recusandae.
+        </p>
+        <NavLink to={'/products'} className="mt-8 btn btn-primary p-5">
+          Our products
+        </NavLink>
       </div>
       <div className="basis-1/2 bg-blue-900 h-[448px] p-2 sm:p-[30px] flex rounded-lg">
         <SimpleImageSlider

@@ -14,7 +14,7 @@ function FeaturedProducts() {
       <div className="divider "></div>
       {error && <ErrorPage error={error} refetch={refetch}/>}
       {isLoading && <SkeletonGrid />}
-      {products && <ProductGrid products={products}/>}
+      {products && <ProductGrid products={products} featured/>}
     </section>
   );
 }

@@ -7,6 +7,7 @@ import SkeletonGrid from "../components/UI/Skeletongrid";
 import ProductFilter from "../components/Products/ProductFilter";
 import { useFetchProducts } from "../services/api/api";
 import ErrorPage from "../components/ErrorPage";
+import {Helmet} from "react-helmet";
 
 function ProductsPage() {
   const [list, setList] = useState(false)
@@ -23,6 +24,11 @@ function ProductsPage() {
 
   return ( 
     <section className="py-10 sm:py-20 pl-[calc(100vw - 100%)]">
+       <Helmet>
+          <meta charSet="utf-8" />
+          <title>Products</title>
+          <link rel="canonical" href="https://comfort-store-nu.vercel.app/products" />
+        </Helmet>
       <ProductFilter/>
       <div className="mt-8">
           <div className="flex justify-between items-center mt-8">

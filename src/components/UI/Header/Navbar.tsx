@@ -7,7 +7,7 @@ import { MdOutlineMenuOpen } from "react-icons/md";
 
 function NavList() {
   const isAuth = useAppSelector((state) => state.auth.isAuth)
-  
+
   const isActiveNavLink = ({isActive}: {isActive: boolean}) => {
     return `px-4 py-2 rounded-lg text-sm transition-all duration-300 ease-in-out 
       ${isActive 
@@ -79,17 +79,17 @@ function Navbar() {
       <nav className="w-full bg-base-300 h-[68px] flex justify-center">
         <section className="w-[320px] sm:w-[500px] md:w-[680px] lg:w-[920px] xl:w-[1080px] flex justify-between">
           <div className="lg:hidden self-center">
-            <button className="btn btn-ghost lg:hidden" onClick={() => setIsShowed(!isShowed)}>
+            <button className="btn btn-ghost lg:hidden" onClick={() => setIsShowed(!isShowed)} aria-label="mobile menu">
               <MdOutlineMenuOpen className="pointer-events-none" size={24}/>
             </button>
             <div className={`bg-base-100 p-4 absolute z-100 w-[200px] transition-all border-1 rounded-md duration-100 ease-in-out ${isShowed ? '' : 'hidden'}`} ref={ref}>
-              <ul className="flex flex-col z-10" onClick={hideDroplist}>
+              <ul className="flex flex-col z-10 gap-y-1" onClick={hideDroplist}>
                 <NavList />
               </ul>
             </div>
           </div>
           <NavLink to='/' className="hidden lg:block self-center">
-            <img src="/android-chrome-512x512.png" className="w-[40px] h-[40px]"/> 
+            <img src="/android-chrome-512x512.png" className="w-[40px] h-[40px]" alt="logo" aria-label="home"/> 
           </NavLink>
           <div className="hidden flex gap-2 lg:flex items-center">
             <NavList />
