@@ -80,7 +80,7 @@ function Navbar() {
         <section className="w-[320px] sm:w-[500px] md:w-[680px] lg:w-[920px] xl:w-[1080px] flex justify-between">
           <div className="lg:hidden self-center">
             <button className="btn btn-ghost lg:hidden" onClick={() => setIsShowed(!isShowed)} aria-label="mobile menu">
-              <MdOutlineMenuOpen className="pointer-events-none" size={24}/>
+              <MdOutlineMenuOpen aria-hidden className="pointer-events-none" size={24}/>
             </button>
             <div className={`bg-base-100 p-4 absolute z-100 w-[200px] transition-all border-1 rounded-md duration-100 ease-in-out ${isShowed ? '' : 'hidden'}`} ref={ref}>
               <ul className="flex flex-col z-10 gap-y-1" onClick={hideDroplist}>
@@ -99,7 +99,7 @@ function Navbar() {
             <NavLink to='/cart'>
               <div className="indicator">
                 <span className="indicator-item badge badge-sm badge-primary rounded-full font-normal text-sm">{totalItems}</span>
-                <BsCart2 size={24} />
+                <BsCart2 aria-hidden size={24} />
               </div>
             </NavLink>
           </div>

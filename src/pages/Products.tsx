@@ -40,7 +40,7 @@ function ProductsPage() {
                 className={`border rounded-full p-2 transition-all duration-500 ease-in-out cursor-pointer 
                   ${list ? 'hover:text-base-400 border-transparent' : 'border-base-500 bg-base-100'}`}
               >
-                <HiOutlineSquares2X2 size={20} />
+                <HiOutlineSquares2X2 size={20} aria-hidden/>
               </button>
               <button 
                 id="list" aria-label="list"
@@ -48,7 +48,7 @@ function ProductsPage() {
                 className={`border rounded-full p-2 transition-all duration-500 ease-in-out cursor-pointer
                   ${list ? 'border-base-500 bg-base-100' : 'hover:text-base-400 border-transparent bg-transparent'}`}
                 >
-                <BsList size={20} />
+                <BsList size={20} aria-hidden/>
               </button>
             </div>
           </div>
