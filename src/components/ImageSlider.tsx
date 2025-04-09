@@ -32,7 +32,8 @@ function ImageSlider({imageUrls}: ImageSliderProps) {
           <img 
             key={image}
             src={image} 
-            className={`object-cover w-full h-full block shrink-0 grow-0 translate-x-[-${100 * imageIndex}%] transition-translate duration-800 ease-in-out`}
+            className={`object-cover w-full h-full block shrink-0 grow-0 transition-translate duration-800 ease-in-out`}
+            style={{ translate: `${-100 * imageIndex}%` }}
             alt={`Image ${index+1}`}
             loading="lazy"
             aria-hidden={imageIndex !== index}
