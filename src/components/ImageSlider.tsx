@@ -42,14 +42,14 @@ function ImageSlider({imageUrls}: ImageSliderProps) {
       </div>
       <button 
         onClick={showPrevImage} 
-        className="absolute top-0 bottom-0 left-0 p-10 cursor-pointer hover:bg-[black]/5 focus:bg-[black]/5 transition-all duration-100 ease-in-out" 
+        className="absolute top-0 bottom-0 left-0 p-10 cursor-pointer hover:bg-[black]/5 transition-all duration-100 ease-in-out" 
         aria-label="prev image"
       >
         <MdArrowBackIos size={28} aria-hidden/>
       </button>
       <button 
         onClick={showNextImage} 
-        className="absolute top-0 bottom-0 right-0 p-10 cursor-pointer hover:bg-[black]/5 focus:bg-[black]/5 transition-all duration-100 ease-in-out"
+        className="absolute top-0 bottom-0 right-0 p-10 cursor-pointer hover:bg-[black]/5 transition-all duration-100 ease-in-out"
         aria-label="next image"
       >
         <MdArrowForwardIos size={28} aria-hidden/>
@@ -58,7 +58,7 @@ function ImageSlider({imageUrls}: ImageSliderProps) {
         {imageUrls.map((_, index) => 
           <button
             key={index}
-            className="hover:scale-120 focus:scale-120 transition-scale duration-100 ease-in-out cursor-pointer p-2"
+            className="hover:scale-120 transition-scale duration-100 ease-in-out cursor-pointer p-2"
             aria-label={`View Image ${index + 1}`}
             onClick={() => setImageIndex(index)}
           >

@@ -10,7 +10,7 @@ function ProductGrid({products, list=false, featured=false}: {products: Product[
         : `${featured ? 'grid-cols-1' : 'grid-cols-2'} md:grid-cols-3 gap-x-[10px] gap-y-[20px] justify-items-center`}`}>
         {products.map(product =>
           <NavLink to={`/products/${product.id}`} key={product.id} className='block'>
-            <ProductCard key={product.id} product={product} list={list}/>
+            <ProductCard key={product.id} product={product} list={list} featured={featured}/>
           </NavLink> 
         )}
     </div>
